@@ -1,0 +1,437 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+/* 1. Use the new v4 import */
+@import "tailwindcss";
+
+/* 2. Wrap your design tokens in @theme so Tailwind generates utilities */
+@theme {
+  /* Updated Brand Colors - Bosch Inspired */
+  --color-carbon-black: #000000;
+  --color-pure-white: #FFFFFF;
+  --color-electric-blue: #007BFF;
+  --color-electric-blue-hover: #0056b3;
+  --color-valliam-red: #E60000;
+  --color-valliam-red-hover: #B30000;
+  --color-tech-gray: #333333;
+  --color-light-gray: #F5F5F5;
+  --color-medium-gray: #666666;
+  --color-accent-cyan: #00BFFF;
+  
+  /* Typography */
+  --font-heading: "Rajdhani", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-accent: "Space Grotesk", sans-serif;
+
+  /* Spacing/Border Radius */
+  --radius-sharp: 0px;
+  --radius-subtle: 2px;
+  --radius-modern: 4px;
+}
+
+/* 3. Global Resets and Base Styles in @layer base */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-pure-white);
+    /* CHANGED: Set default text color here so it can be overridden */
+    color: var(--color-tech-gray);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    /* Headings stay black */
+    color: var(--color-carbon-black);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { font-size: 4rem; font-weight: 700; }
+  h2 { font-size: 2.75rem; font-weight: 700; }
+  h3 { font-size: 1.75rem; font-weight: 600; }
+  h4 { font-size: 1.25rem; font-weight: 600; }
+
+  p {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    /* REMOVED: color: var(--color-tech-gray); */
+    /* Now paragraphs inherit color from their parent (body or a div) */
+  }
+
+  a {
+    color: var(--color-electric-blue);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--color-electric-blue-hover);
+  }
+
+  input,
+  textarea,
+  select {
+    font-family: var(--font-body);
+    border-radius: var(--radius-subtle);
+    border: 2px solid var(--color-medium-gray);
+    padding: 14px 18px;
+    transition: all 0.3s ease;
+    background-color: var(--color-pure-white);
+    color: var(--color-carbon-black); /* Ensure input text is dark */
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--color-electric-blue);
+    box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+  }
+}
+
+/* 4. Component Styles in @layer components */
+@layer components {
+  /* Navbar Styles */
+  .navbar {
+    @apply sticky top-0 z-50;
+    background-color: var(--color-pure-white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--color-carbon-black);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar-brand {
+    font-family: var(--font-heading);
+    @apply font-bold tracking-tight;
+    color: var(--color-carbon-black);
+  }
+
+  .navbar-link {
+    color: var(--color-carbon-black);
+    @apply font-medium text-sm tracking-tight transition-all duration-300;
+    position: relative;
+  }
+
+  .navbar-link:hover {
+    color: var(--color-electric-blue);
+  }
+
+  .navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-electric-blue);
+    transition: width 0.3s ease;
+  }
+
+  .navbar-link:hover::after {
+    width: 100%;
+  }
+
+  /* Button Styles */
+  .btn {
+    font-family: var(--font-heading);
+    @apply font-semibold border-none cursor-pointer transition-all duration-300;
+    padding: 14px 32px;
+    font-size: 0.95rem;
+    border-radius: var(--radius-subtle);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    background-color: var(--color-valliam-red);
+    color: var(--color-pure-white);
+    box-shadow: 0 4px 12px rgba(230, 0, 0, 0.25);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-valliam-red-hover);
+    box-shadow: 0 6px 20px rgba(230, 0, 0, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-carbon-black);
+    color: var(--color-pure-white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-tech-gray);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--color-carbon-black);
+    color: var(--color-carbon-black);
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-carbon-black);
+    color: var(--color-pure-white);
+  }
+
+  .btn-blue {
+    background-color: var(--color-electric-blue);
+    color: var(--color-pure-white);
+    box-shadow: 0 4px 12px rgba(0, 127, 255, 0.25);
+  }
+
+  .btn-blue:hover {
+    background-color: var(--color-electric-blue-hover);
+    box-shadow: 0 6px 20px rgba(0, 127, 255, 0.35);
+    transform: translateY(-2px);
+  }
+
+  /* Section Styles */
+  .section-dark {
+    background-color: var(--color-carbon-black);
+    color: var(--color-pure-white);
+  }
+
+  .section-dark h2 {
+    color: var(--color-pure-white);
+  }
+
+  .section-dark p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .section-light {
+    background-color: var(--color-pure-white);
+    color: var(--color-carbon-black);
+  }
+
+  .section-gray {
+    background-color: var(--color-light-gray);
+    color: var(--color-carbon-black);
+  }
+
+  /* Card Styles */
+  .card {
+    background-color: var(--color-pure-white);
+    border-radius: var(--radius-subtle);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .card-dark {
+    background-color: var(--color-carbon-black);
+    color: var(--color-pure-white);
+    border-left: 4px solid var(--color-electric-blue);
+  }
+
+  .card-dark:hover {
+    background-color: var(--color-tech-gray);
+    border-left-color: var(--color-valliam-red);
+  }
+
+  /* Footer Styles */
+  .footer {
+    background-color: var(--color-carbon-black);
+    border-top: 3px solid var(--color-valliam-red);
+    color: var(--color-pure-white);
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-heading {
+    color: var(--color-pure-white);
+    @apply text-lg font-bold tracking-tight;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+  }
+
+  .footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-electric-blue);
+  }
+}
+
+/* 5. Utilities in @layer utilities */
+@layer utilities {
+  /* Text Color Utilities */
+  .text-carbon-black {
+    color: var(--color-carbon-black);
+  }
+
+  .text-electric-blue {
+    color: var(--color-electric-blue);
+  }
+
+  .text-valliam-red {
+    color: var(--color-valliam-red);
+  }
+
+  /* Background Utilities */
+  .bg-carbon-black {
+    background-color: var(--color-carbon-black);
+  }
+
+  .bg-electric-blue {
+    background-color: var(--color-electric-blue);
+  }
+
+  .bg-valliam-red {
+    background-color: var(--color-valliam-red);
+  }
+
+  .bg-light-gray {
+    background-color: var(--color-light-gray);
+  }
+
+  /* Border Utilities */
+  .border-electric-blue {
+    border-color: var(--color-electric-blue);
+  }
+
+  .border-valliam-red {
+    border-color: var(--color-valliam-red);
+  }
+
+  /* Animation Utilities */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+
+  .pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Gradient Utilities */
+  .gradient-blue {
+    background: linear-gradient(135deg, var(--color-electric-blue) 0%, var(--color-accent-cyan) 100%);
+  }
+
+  .gradient-red {
+    background: linear-gradient(135deg, var(--color-valliam-red) 0%, #FF4444 100%);
+  }
+
+  .gradient-dark {
+    background: linear-gradient(135deg, var(--color-carbon-black) 0%, var(--color-tech-gray) 100%);
+  }
+}
+
+/* 6. Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-electric-blue);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-electric-blue-hover);
+}
+
+/* 7. Responsive Typography */
+@media (max-width: 1024px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.875rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+/* 8. Print Styles */
+@media print {
+  .no-print { display: none; }
+}
